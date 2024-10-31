@@ -1,1 +1,69 @@
+#ifndef PLAY_2P_H
+#define PLAY_2P_H
 
+#include "qmainwindow.h"
+#include <QWidget>
+#include <QGridLayout>
+#include <QMessageBox>
+#include <QMouseEvent>
+
+using namespace std;
+
+class Jeton : public QWidget
+{
+    Q_OBJECT
+
+public:
+
+    Jeton(int colonne, QWidget *parent = nullptr)
+        : QWidget(parent), joueur(0), colonne(colonne) {
+       
+        setFixedSize(50, 50);
+        setAutoFillBackground(true);
+        MAJ_Couleur();
+    }
+   
+private:
+   
+    void MAJ_Couleur(){
+       
+        // Créer un objet palette pour gérer les couleurs
+        QPalette palette = this->palette();
+       
+        // Définir la couleur du jeton en fonction du joueur
+        if (joueur == 1) {
+            palette.setColor(QPalette::Window, Qt::red); // Joueur 1
+        } else if (joueur == 2) {
+            palette.setColor(QPalette::Window, Qt::yellow); // Joueur 2
+        } else {
+            palette.setColor(QPalette::Window, Qt::lightGray); // Jeton vide
+        }
+       
+        // Appliquer la palette mise à jour au jeton
+        setPalette(palette);
+       
+    }
+
+    int joueur;
+    int colonne;
+
+};
+
+class PLAY_2P : public QMainWindow
+{
+    Q_OBJECT
+
+public:
+    PLAY_2P(QWidget *parent = nullptr);
+    ~PLAY_2P();
+
+private slots:
+
+private:
+
+
+
+};
+
+
+#endif //PLAY_2P_H
