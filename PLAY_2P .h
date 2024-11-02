@@ -18,11 +18,12 @@ public:
     explicit PLAY_2P(QWidget *parent = nullptr);
 
     void INTERFACE_2P();
+
+
+public slots:
+
     void colonneCliquee(int col);
-    void reinitialiser();
-
-
-
+    void Reinitialiser();
 
 private:
 
@@ -30,8 +31,10 @@ private:
     QLabel * TITRE;
     QPushButton * RESET;
     QPushButton * Quit1;
+    QPushButton *boutonColonne;
     PLATEAU_2P *PLATEAU;
     int joueurActuel;
+
 
     void changerJoueur();
 
