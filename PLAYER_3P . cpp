@@ -10,7 +10,7 @@
 #include <QHBoxLayout>
 #include <QMessageBox>
 
-PLAY_3P::PLAY_3P(QWidget *parent) : QWidget(parent),  PLATEAU(new PLATEAU_3P(this)), joueurActuel(1) {}
+PLAY_3P::PLAY_3P(QWidget *parent) : QWidget(parent),  PLATEAU(new PLATEAU_3P(this)) {}
 
 
 void PLAY_3P:: INTERFACE_3P(){
