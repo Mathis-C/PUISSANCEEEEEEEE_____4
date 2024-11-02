@@ -5,15 +5,15 @@ using namespace std;
 
 
 PLATEAU_3P::PLATEAU_3P(QWidget *parent)
-    : QWidget(parent), layoutGrille(new QGridLayout(this)){
-    
+    : QWidget(parent), layoutGrille(new QGridLayout(this)){     // ON VA CREER UNE GRILLE DE 10 LIGNES et 11 COLONNES
+
     setLayout(layoutGrille);    // Ajout du Layout en grille
-    grille.resize(10, vector<JETON_3P*>(11, nullptr));   // Redimensionnement des jetons à la taille de la grille
-    
+    grille.resize(10, vector<JETON_2P*>(11, nullptr));   // Redimensionnement des jetons à la taille de la grille
+
     // Initialisation de la grille
     for (int row = 0; row < 10; ++row) {   // On parcours les lignes de la grille de 0 à 9 (10 lignes au total)
         for (int col = 0; col < 11; ++col) {  // On parcours les colonnes de 0 à 10 (11 colonnes au total)
-            JETON = new JETON_3P(this);  // Création d'un Widget "JETON" qui provirnt de la classe "JETON_2P"
+            JETON = new JETON_2P(this);  // Création d'un Widget "JETON" qui provirnt de la classe "JETON_2P"
             grille[row][col] = JETON;   // Remplissage de tt les jetons dans la grilles
             layoutGrille->addWidget(JETON, row, col); // Ajout des WIDGETS dans la grille
         }
@@ -26,7 +26,7 @@ bool PLATEAU_3P::ajouterJeton(int col, int joueur) { //Fontion pour ajouter un j
             // Verification en partant du bas de la grille
             // On remonte la colonne jusqu'à une case vide
             //  pour pouvoir ajouter un jeton de couleur
-            
+
             grille[row][col]->definirCouleur(joueur);  // Ajout de la couleur du jeton dans la première case vide en partant du bas
                                                        // en fonction du joueur actif
             return verifierVictoire(joueur);           // Après ajout du jeton, on verifit si le joueur actif a gagné
@@ -36,7 +36,7 @@ bool PLATEAU_3P::ajouterJeton(int col, int joueur) { //Fontion pour ajouter un j
 }
 
 bool PLATEAU_3P::verifierVictoire(int joueur) {
-    
+
     // Vérification des lignes
     for (int row = 0; row < 10; ++row) {     // boucle for pour tourner sur toutes les lignes de la grille
         for (int col = 0; col < 8; ++col) {  // boucle  for pour tourner sur les 8 premières colonnes (8+3 =11)
@@ -48,7 +48,7 @@ bool PLATEAU_3P::verifierVictoire(int joueur) {
             }
         }
     }
-    
+
     // Vérification des colonnes
     for (int col = 0; col < 11; ++col) {            // boucle for pour tourner sur toutes les colonnes de la grille
         for (int row = 0; row < 7; ++row) {           // boucle  for pour tourner sur les 7 premières lignes (7+3 =10)
@@ -60,7 +60,7 @@ bool PLATEAU_3P::verifierVictoire(int joueur) {
             }
         }
     }
-    
+
     // Vérification des diagonales
     for (int row = 0; row < 7; ++row) {      // boucle  for pour tourner sur les 3 premières lignes (7+3 =10)
         for (int col = 0; col < 8; ++col) {  // boucle  for pour tourner sur les 4 premières colonnes (8+3 =11)
@@ -78,9 +78,9 @@ bool PLATEAU_3P::verifierVictoire(int joueur) {
             }
         }
     }
-    
-    
-    
+
+
+
     return false; // Return flase si le joueur n'a pas encore gagné -> le jeu continu
 }
 
