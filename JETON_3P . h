@@ -1,0 +1,20 @@
+#ifndef JETON_3P_H
+#define JETON_3P_H
+
+#include <QPushButton>
+
+class JETON_3P : public QPushButton {
+    Q_OBJECT
+
+public:
+
+    explicit JETON_3P(QWidget *parent = nullptr);
+
+    void definirCouleur(int joueur); // Change la couleur en fonction du joueur
+    int getJoueur() const;
+
+private:
+    int joueur;
+};
+
+#endif
