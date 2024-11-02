@@ -1,0 +1,32 @@
+#ifndef PLATEAU_3P_H
+#define PLATEAU_3P_H
+
+#include <QWidget>
+#include <QGridLayout>
+#include "jeton_3p.h"
+
+using namespace std;
+
+
+class PLATEAU_3P : public QWidget {
+    Q_OBJECT
+
+public:
+    
+    explicit PLATEAU_3P(QWidget *parent = nullptr);
+    bool ajouterJeton(int col, int joueur);
+    bool verifierVictoire(int joueur);
+    void reinitialiser();
+
+signals:
+    
+    void victoire(int joueur);
+
+private:
+    
+    vector<vector<JETON_3P*>> grille;
+    QGridLayout *layoutGrille;
+    JETON_3P *JETON;
+};
+
+#endif
