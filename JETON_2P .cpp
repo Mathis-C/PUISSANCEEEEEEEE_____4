@@ -2,7 +2,6 @@
 
 
 
-
 JETON_2P::JETON_2P(QWidget *parent) : QPushButton(parent), joueur(0) {
     setFixedSize(50, 50);  // Definition de la taille du jeton
 }
@@ -20,9 +19,13 @@ void JETON_2P::definirCouleur(int joueurId) {   // Fonction pour définir la cou
 
         setStyleSheet("background-color: yellow;"); // attribuer une couleur au jeton pour le joueur 2
 
-    } else {  // Condition si aucun des joueurs a remplit la case
+    }else if (joueur == 3) { // Condition pour vérifier s'il s'agit du joueur 3
 
-        setStyleSheet("background-color: lightgray;");   // attribuer une couleur à la case vide du plateau (aucun joueur)
+        setStyleSheet("background-color: green;");  // attribuer une couleur au jeton pour le joueur 3
+
+    } else {   // Condition si aucun des joueurs a remplit la case
+
+        setStyleSheet("background-color: lightgray;"); // attribuer une couleur à la case vide du plateau (aucun joueur)
     }
 }
 
@@ -30,3 +33,4 @@ void JETON_2P::definirCouleur(int joueurId) {   // Fonction pour définir la cou
 int JETON_2P:: getJoueur() const{   // Fonction pour relever le joueur actif
     return joueur;
 }
+
