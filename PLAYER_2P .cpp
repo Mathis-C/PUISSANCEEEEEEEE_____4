@@ -10,7 +10,9 @@
 #include <QMessageBox>
 
 
-PLAY_2P::PLAY_2P(QWidget *parent) : QWidget(parent),  PLATEAU(new PLATEAU_2P(this)) {}
+PLAY_2P::PLAY_2P(QWidget *parent) : QWidget(parent),  PLATEAU(new PLATEAU_2P(this)) {
+
+}
 
 
 void PLAY_2P:: INTERFACE_2P(){
@@ -69,7 +71,7 @@ void PLAY_2P::changerJoueur() {  // Fonction pour changer de joueur actif
 
     if (joueurActuel == 1) {   // condition if pour changer de joueur si le joeur 1 est actif
         joueurActuel = 2;
-    } else {
+    } else if (joueurActuel == 2) {
         joueurActuel = 1;   // Si le joeur 1 n'est pas actif, le joueur 1 devient actif
     }
 }
@@ -78,6 +80,12 @@ void PLAY_2P::changerJoueur() {  // Fonction pour changer de joueur actif
 void PLAY_2P::Reinitialiser() {   //Fonction pour réinitialiser le jeu
     PLATEAU->reinitialiser();
 }
+
+
+
+
+
+
 
 
 
