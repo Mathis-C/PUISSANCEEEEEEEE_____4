@@ -10,7 +10,7 @@
 #include <QMessageBox>
 
 
-PLAY_2P::PLAY_2P(QWidget *parent) : QWidget(parent),  PLATEAU(new PLATEAU_2P(this)), joueurActuel(1) {}
+PLAY_2P::PLAY_2P(QWidget *parent) : QWidget(parent),  PLATEAU(new PLATEAU_2P(this)) {}
 
 
 void PLAY_2P:: INTERFACE_2P(){
