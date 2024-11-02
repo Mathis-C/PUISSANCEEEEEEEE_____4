@@ -33,7 +33,7 @@ private:
     QPushButton * Quit1;
     QPushButton *boutonColonne;
     PLATEAU_2P *PLATEAU;
-    int joueurActuel;
+    int joueurActuel = 1;
 
 
     void changerJoueur();
