@@ -60,8 +60,8 @@ void PLAY_3P:: INTERFACE_3P(){
 
 
     mainLayout->addLayout(titreLayout);    // Ajout du Layout titre dans le layout principal
-    mainLayout->addWidget(PLATEAU);        // Ajout du plateau dans le layout princiapl
     mainLayout->addLayout(colonneLayout);  // ajout du layout des 7 boutons au layout principal
+    mainLayout->addWidget(PLATEAU);        // Ajout du plateau dans le layout princiapl
     mainLayout->addLayout(buttonLayout);   // Ajout du layout bouton au layout principal
 
 
