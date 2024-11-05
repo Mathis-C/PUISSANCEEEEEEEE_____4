@@ -7,9 +7,14 @@
 
 using namespace std;
 
-
 class PLATEAU_3P : public QWidget {
+
     Q_OBJECT
+
+public:
+
+    PLATEAU_3P();
+
 
 public:
 
@@ -23,7 +28,6 @@ private:
 
     vector<vector<JETON_2P*>> grille;
     QGridLayout *layoutGrille;
-
 };
 
-#endif
+#endif // PLATEAU_3P_H
