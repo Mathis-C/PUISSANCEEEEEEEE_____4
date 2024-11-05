@@ -21,6 +21,7 @@ public:
 private slots: // Déclaration de nos fonctions qui sont donc des slots pouvant être appelé par des signaux
 
     void play();
+    void help();
 
 private:
          // Déclaration des Widgets "enfants"
