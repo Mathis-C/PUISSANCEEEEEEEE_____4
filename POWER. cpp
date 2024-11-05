@@ -9,20 +9,37 @@
 #include <QDoubleValidator>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QMessageBox>
+
 
 POWER4::POWER4(QWidget *parent)
     : QMainWindow(parent), menuPlayer(new MENU_PLAYER(this))
 {
+    setWindowTitle("POWER 4");   // Titre de l'interface
+    window()->setStyleSheet("background-color: black;"); // Couleur de fond noire
+    window()->setMinimumSize(700, 500);
 
     TITRE = new QLabel (" POWER 4 ", this);
-    DESIGN = new QLabel ("Design by MAXIMO, ANGELICA and MATHOQ", this);
+    TITRE->setStyleSheet("font-size: 100px; font-weight: bold; color: red;");
 
     PLAY = new QPushButton ("PLAY" , this);
+    PLAY->setStyleSheet("font-size: 25px; font-weight: bold;background-color: darkblue; color: white;");
+
     HELP = new QPushButton ("HELP", this);
+    HELP->setStyleSheet("font-size: 25px; font-weight: bold;background-color: darkblue; color: white;");
+
     QUIT = new QPushButton ( "QUIT" , this);
+    QUIT->setStyleSheet("font-size: 25px; font-weight: bold;background-color: darkblue; color: white;");
+
+    DESIGN = new QLabel ("Design by MAXIME, ANGELIQUE and MATHIS", this);
+    DESIGN->setStyleSheet("font-size: 10px; font-weight: bold; color: white;");
+
+
 
     connect(QUIT, SIGNAL(clicked()), this, SLOT(close()));
     connect(PLAY, SIGNAL(clicked()), this, SLOT(play()));
+    connect(HELP , &QPushButton::clicked, this, &POWER4::help);
+
 
 
     QWidget *centralWidget = new QWidget(this);
@@ -70,5 +87,10 @@ void POWER4::play(){
 
 }
 
+void POWER4::help(){
+
+    QMessageBox::information(this, "HELP", QString("If you want to play, clicked on the button 'PLAY', select how many players you are and enjoy the game of 'POWER 4' !! Here are the rules of the game: POWER 4 is a two-player game. Insert a token by pressing the key 'TOKEN'. The first to get four in a row horizontally, vertically, or diagonally wins. "));
+
+}
 
 POWER4::~POWER4() {}
