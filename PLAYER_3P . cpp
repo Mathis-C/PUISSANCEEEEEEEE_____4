@@ -1,5 +1,4 @@
-#include "PLAY_3P.h"
-#include "plateau_3p.h"
+#include "play_3p.h"
 #include "qobjectdefs.h"
 #include <QMainWindow>
 #include <QWidget>
@@ -13,14 +12,18 @@
 PLAY_3P::PLAY_3P(QWidget *parent) : QWidget(parent),  PLATEAU(new PLATEAU_3P(this)) {}
 
 
+
 void PLAY_3P:: INTERFACE_3P(){
 
-    setWindowTitle("Puissance 4");   // Titre de l'interface
+    setWindowTitle("POWER 4");   // Titre de l'interface
+    window()->setStyleSheet("background-color: black;"); // Couleur de fond noire
 
     QVBoxLayout *mainLayout = new QVBoxLayout();    // Création d'un Layout principal
     setLayout(mainLayout);                         // Dans lequel on va ajouter tous nos widgets et Layout secondaire
 
     TITRE = new QLabel("POWER 4", this);         // Création du widget TITRE sous forme de QLABEL
+    TITRE->setStyleSheet("font-size: 80px; font-weight: bold; color: red;");
+
     QHBoxLayout *titreLayout = new QHBoxLayout();   // Création du Layout titre qu'on place au milieu
     titreLayout->addStretch();
     titreLayout->addWidget(TITRE);
@@ -30,9 +33,11 @@ void PLAY_3P:: INTERFACE_3P(){
     // Boutons pour chaque colonne
     QHBoxLayout *colonneLayout = new QHBoxLayout();   // création d'un laytout horizontal pour ajouter nos 7 boutons
     for (int i = 0; i < 11 ; ++i) {      // Création de 11 boutons avec boucle for
-        boutonColonne = new QPushButton("Inserer un jeton !");  //Création d'un widget bouton, qu'on va répéter 11 fois + Remplissage écriture bouton
-        boutonColonne->setFixedSize(50, 50);   // Taille bouton
-      connect(boutonColonne, &QPushButton::clicked, [this, i]() { colonneCliquee(i); });  // ECRIRE A NOTRE FACON // Association du bouton i à la colonne i
+        boutonColonne = new QPushButton(" TOKEN ");  //Création d'un widget bouton, qu'on va répéter 11 fois + Remplissage écriture bouton
+        boutonColonne->setFixedSize(45, 45);   // Taille bouton
+        boutonColonne->setStyleSheet("font-size: 10px; font-weight: bold;background-color: darkblue; color: white;");
+        connect(boutonColonne, &QPushButton::clicked, [this, i]() { colonneCliquee(i); });
+        // connect(boutonColonne, SIGNAL(clicked()), this, SLOT ({colonneCliquee(i);}));  // ECRIRE A NOTRE FACON // Association du bouton i à la colonne i
         colonneLayout->addWidget(boutonColonne);   // Ajout des 11 boutons en ligne
     }
     mainLayout->addLayout(colonneLayout);  // ajout du layout des 7 boutons au layout principal
@@ -41,7 +46,11 @@ void PLAY_3P:: INTERFACE_3P(){
 
     // Boutons Reset et Quit
     RESET = new QPushButton("RESET", this);   // Création du bouton widget RESET
-    Quit1 = new QPushButton("QUIT", this);    // Création du bouton widget QUIT
+    RESET->setStyleSheet("font-size: 25px; font-weight: bold;background-color: darkblue; color: white;");
+
+    Quit1 = new QPushButton("RETURN", this);    // Création du bouton widget QUIT
+    Quit1->setStyleSheet("font-size: 25px; font-weight: bold;background-color: darkblue; color: white;");
+
     connect(RESET, SIGNAL(clicked()), this, SLOT (Reinitialiser()));  // Fonction qui permet d'assosier le bouton RESET à la fonction Reinitialiser()
     connect(Quit1, SIGNAL(clicked()), this, SLOT (close())); // fonction connect qui permet d'associer l'action de quitter au bouton QUIT
 
@@ -58,7 +67,7 @@ void PLAY_3P::colonneCliquee(int col) {    //
 
         // On ouvre une fenêtre de dialogue si la condition est vérifiée par le if
         // celle-ci indique quel joueur a gagné en utilisant un argument definissant le dernier joueur actif
-        QMessageBox::information(this, "Victoire!", QString("Joueur %1 a gagné!").arg(joueurActuel));
+        QMessageBox::information(this, "WINNN !!!", QString("PLAYER %1 WON!").arg(joueurActuel));
         PLATEAU->reinitialiser();
     }
     changerJoueur();  // On appelle cette fonction pour changer de joueur quand un joueur a cliqué sur un colonne pour jouer
