@@ -1,4 +1,4 @@
-ifndef POWER4_H
+#ifndef POWER4_H
 #define POWER4_H
 
 
@@ -21,7 +21,7 @@ public:
 private slots: // Déclaration de nos fonctions qui sont donc des slots pouvant être appelé par des signaux
 
     void play();      // Fonction pour relier nos interfaces
-    void help();      
+    void help();
 
 private:
          // Déclaration des Widgets "enfants"
@@ -31,7 +31,7 @@ private:
     QPushButton *HELP;
     QPushButton *QUIT;
     QLabel *DESIGN;
-    MENU_PLAYER *menuPlayer;
+    MENU_PLAYER * jeu;
 
 
 
