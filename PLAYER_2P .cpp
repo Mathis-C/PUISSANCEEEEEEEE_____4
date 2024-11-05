@@ -34,7 +34,7 @@ void PLAY_2P:: INTERFACE_2P(){
     for (int i = 0; i < 7; ++i) {      // Création de 7 boutons avec boucle for
         boutonColonne = new QPushButton(QString::number(i + 1));  //Création d'un widget bouton, qu'on va répéter 7 fois + Remplissage nbr colonne
         boutonColonne->setFixedSize(50, 50);   // Taille bouton
-        connect(boutonColonne, SIGNAL(clicked()), this, SLOT ({colonneCliquee(i);}));  // Association du bouton i à la colonne i
+      connect(boutonColonne, &QPushButton::clicked, [this, i]() { colonneCliquee(i); });  // Association du bouton i à la colonne i
         // Association du bouton i à la colonne i
         colonneLayout->addWidget(boutonColonne);   // Ajout des 7 boutons en ligne
     }
