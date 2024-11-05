@@ -12,85 +12,98 @@
 #include <QMessageBox>
 
 
-POWER4::POWER4(QWidget *parent)
-    : QMainWindow(parent), menuPlayer(new MENU_PLAYER(this))
+POWER4::POWER4(QWidget *parent)     // Déclaration de notre constructeur
+    : QMainWindow(parent), jeu(new MENU_PLAYER(this))    // Initialisation de la Classe MENU_PLAYER pour lier nos interfaces
 {
     setWindowTitle("POWER 4");   // Titre de l'interface
     window()->setStyleSheet("background-color: black;"); // Couleur de fond noire
-    window()->setMinimumSize(700, 500);
+    window()->setMinimumSize(700, 500);   // Taille de l'interface
 
-    TITRE = new QLabel (" POWER 4 ", this);
-    TITRE->setStyleSheet("font-size: 100px; font-weight: bold; color: red;");
+    TITRE = new QLabel (" POWER 4 ", this);      // Declaration du widget TITRE
+    TITRE->setStyleSheet("font-size: 100px; font-weight: bold; color: red;");  // Personnalisation du titre
 
-    PLAY = new QPushButton ("PLAY" , this);
-    PLAY->setStyleSheet("font-size: 25px; font-weight: bold;background-color: darkblue; color: white;");
+    PLAY = new QPushButton ("PLAY" , this);       // Declaration du widget PLAY
+    PLAY->setStyleSheet("font-size: 25px; font-weight: bold;background-color: darkblue; color: white;");  // Personnalisation du bouton PLAY
 
-    HELP = new QPushButton ("HELP", this);
-    HELP->setStyleSheet("font-size: 25px; font-weight: bold;background-color: darkblue; color: white;");
+    HELP = new QPushButton ("HELP", this);    // Declaration du widget HELP
+    HELP->setStyleSheet("font-size: 25px; font-weight: bold;background-color: darkblue; color: white;");  // Personnalisation du bouton HELP
 
-    QUIT = new QPushButton ( "QUIT" , this);
-    QUIT->setStyleSheet("font-size: 25px; font-weight: bold;background-color: darkblue; color: white;");
+    QUIT = new QPushButton ( "QUIT" , this);    // Declaration du widget QUIT
+    QUIT->setStyleSheet("font-size: 25px; font-weight: bold;background-color: darkblue; color: white;");  // Personnalisation du bouton QUIT
 
-    DESIGN = new QLabel ("Design by MAXIME, ANGELIQUE and MATHIS", this);
-    DESIGN->setStyleSheet("font-size: 10px; font-weight: bold; color: white;");
+    DESIGN = new QLabel ("Design by MAXIME, ANGELIQUE and MATHIS", this);     //Déclaration du Widget DESIGN
+    DESIGN->setStyleSheet("font-size: 10px; font-weight: bold; color: white;");  // Personnalisation du QLabel DESIGN
 
 
-
+    // Fonction connect qui permet de donner l'action de quitter l'interface quand le bouton est cliqué:
     connect(QUIT, SIGNAL(clicked()), this, SLOT(close()));
+
+    //Fonction connect qui permet de lier la nouvelle interface MENU_PLAYER quand on appuie sur le bouton PLAY:
     connect(PLAY, SIGNAL(clicked()), this, SLOT(play()));
+
+    //Fonction connect qui permet d'ouvrir la fonction help qui permet l'affichage d'une boite de dialogue
     connect(HELP , &QPushButton::clicked, this, &POWER4::help);
 
 
 
-    QWidget *centralWidget = new QWidget(this);
+    QWidget *centralWidget = new QWidget(this);  // Création d'un Layout Central
     setCentralWidget(centralWidget);
 
-    QHBoxLayout * titre = new QHBoxLayout();
+    QHBoxLayout * titre = new QHBoxLayout();  // Création du Layout titre qu'on place au milieu
     titre->addStretch();
     titre->addWidget(TITRE);
     titre->addStretch();
 
-    QHBoxLayout * play = new QHBoxLayout();
-    play -> addWidget(PLAY);
+    QHBoxLayout * play = new QHBoxLayout();  // Création du Layout secondaires play
+    play -> addWidget(PLAY);   // On ajoute le bouton PLAY a ce Layout
 
 
-    QHBoxLayout * help = new QHBoxLayout();
-    help -> addWidget(HELP);
+    QHBoxLayout * help = new QHBoxLayout();  // Création du Layout secondaires help
+    help -> addWidget(HELP);     // On ajout le bouton HELP à ce Layout
 
-    QHBoxLayout * quit = new QHBoxLayout();
-    quit -> addWidget(QUIT);
-
-
-    QHBoxLayout * des = new QHBoxLayout();
-    des -> addWidget(DESIGN);
+    QHBoxLayout * quit = new QHBoxLayout(); // Création du Layout secondaires quit
+    quit -> addWidget(QUIT);   // On ajout le bouton QUIT à ce Layout
 
 
 
-    QVBoxLayout * MENU = new QVBoxLayout(this);
+    QHBoxLayout * des = new QHBoxLayout();  // Création du Layout secondaires des
+    des -> addWidget(DESIGN);   // On ajout le texte du QLabel DESIGN à ce Layout
 
-    MENU -> addLayout(titre);
-    MENU -> addLayout(play);
+
+
+
+    QVBoxLayout * MENU = new QVBoxLayout(this);  // Création d'un Layout principal
+
+    MENU -> addLayout(titre);     // On ajout tous les layout secondaires
+    MENU -> addLayout(play);      // au Layout principal
     MENU -> addLayout(help);
     MENU -> addLayout(quit);
     MENU -> addLayout(des);
 
 
-    centralWidget->setLayout(MENU);
+    centralWidget->setLayout(MENU);  // On place le Layout principal au centre
 
 }
 
+ // Fonction play qui permet de faire le lien entre nos interfaces, pour afficher le MENU_PLAYER
 void POWER4::play(){
 
-    MENU_PLAYER * jeu = new MENU_PLAYER;
+    jeu = new MENU_PLAYER;   // Délcaration de ma classe pour ensuite l'afficher
     jeu->show();
     jeu -> start();
 
 }
 
+// Fonction help pour afficher une boite de dialogue
 void POWER4::help(){
 
-    QMessageBox::information(this, "HELP", QString("If you want to play, clicked on the button 'PLAY', select how many players you are and enjoy the game of 'POWER 4' !! Here are the rules of the game: POWER 4 is a two-player game. Insert a token by pressing the key 'TOKEN'. The first to get four in a row horizontally, vertically, or diagonally wins. "));
+    // QMessageBox pour afficher notre message d'aide
+    QMessageBox::information(this, "HELP", QString("If you want to play, clicked on the button 'PLAY', "
+                                                   "select how many players you are and enjoy the game of 'POWER 4' !!"
+                                                   " Here are the rules of the game: POWER 4 is a two and three-player game. "
+                                                   "Insert a token by pressing the key 'TOKEN'."
+                                                   " The first to get four in a row horizontally, vertically, or diagonally wins. "));
 
 }
 
-POWER4::~POWER4() {}
+POWER4::~POWER4() {}  // Destructeur
