@@ -31,7 +31,7 @@ private:
     QPushButton *HELP;
     QPushButton *QUIT;
     QLabel *DESIGN;
-    MENU_PLAYER * jeu;
+    MENU_PLAYER * jeu;   // Initialisation de la class MENU_PLAYER
 
 
 
