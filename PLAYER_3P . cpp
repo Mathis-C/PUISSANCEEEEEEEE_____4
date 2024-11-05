@@ -18,31 +18,11 @@ void PLAY_3P:: INTERFACE_3P(){
     setWindowTitle("POWER 4");   // Titre de l'interface
     window()->setStyleSheet("background-color: black;"); // Couleur de fond noire
 
-    QVBoxLayout *mainLayout = new QVBoxLayout();    // Création d'un Layout principal
-    setLayout(mainLayout);                         // Dans lequel on va ajouter tous nos widgets et Layout secondaire
 
     TITRE = new QLabel("POWER 4", this);         // Création du widget TITRE sous forme de QLABEL
     TITRE->setStyleSheet("font-size: 80px; font-weight: bold; color: red;");
 
-    QHBoxLayout *titreLayout = new QHBoxLayout();   // Création du Layout titre qu'on place au milieu
-    titreLayout->addStretch();
-    titreLayout->addWidget(TITRE);
-    titreLayout->addStretch();
-    mainLayout->addLayout(titreLayout);   // Ajout du Layout titre dans le layout principal
 
-    // Boutons pour chaque colonne
-    QHBoxLayout *colonneLayout = new QHBoxLayout();   // création d'un laytout horizontal pour ajouter nos 7 boutons
-    for (int i = 0; i < 11 ; ++i) {      // Création de 11 boutons avec boucle for
-        boutonColonne = new QPushButton(" TOKEN ");  //Création d'un widget bouton, qu'on va répéter 11 fois + Remplissage écriture bouton
-        boutonColonne->setFixedSize(45, 45);   // Taille bouton
-        boutonColonne->setStyleSheet("font-size: 10px; font-weight: bold;background-color: darkblue; color: white;");
-        connect(boutonColonne, &QPushButton::clicked, [this, i]() { colonneCliquee(i); });
-        // connect(boutonColonne, SIGNAL(clicked()), this, SLOT ({colonneCliquee(i);}));  // ECRIRE A NOTRE FACON // Association du bouton i à la colonne i
-        colonneLayout->addWidget(boutonColonne);   // Ajout des 11 boutons en ligne
-    }
-    mainLayout->addLayout(colonneLayout);  // ajout du layout des 7 boutons au layout principal
-
-    mainLayout->addWidget(PLATEAU);  // Ajout du plateau dans le layout princiapl
 
     // Boutons Reset et Quit
     RESET = new QPushButton("RESET", this);   // Création du bouton widget RESET
@@ -51,14 +31,42 @@ void PLAY_3P:: INTERFACE_3P(){
     Quit1 = new QPushButton("RETURN", this);    // Création du bouton widget QUIT
     Quit1->setStyleSheet("font-size: 25px; font-weight: bold;background-color: darkblue; color: white;");
 
-    connect(RESET, SIGNAL(clicked()), this, SLOT (Reinitialiser()));  // Fonction qui permet d'assosier le bouton RESET à la fonction Reinitialiser()
-    connect(Quit1, SIGNAL(clicked()), this, SLOT (close())); // fonction connect qui permet d'associer l'action de quitter au bouton QUIT
+
+    // Boutons pour chaque colonne
+    QHBoxLayout *colonneLayout = new QHBoxLayout();   // création d'un laytout horizontal pour ajouter nos 7 boutons
+    for (int i = 0; i < 11 ; ++i) {      // Création de 11 boutons avec boucle for
+
+        boutonColonne = new QPushButton(" TOKEN ");  //Création d'un widget bouton, qu'on va répéter 11 fois + Remplissage écriture bouton
+        boutonColonne->setFixedSize(45, 45);   // Taille bouton
+        boutonColonne->setStyleSheet("font-size: 10px; font-weight: bold;background-color: darkblue; color: white;");// Personnalisation des boutons
+
+        connect(boutonColonne, &QPushButton::clicked, [this, i]() { colonneCliquee(i); });  // ECRIRE A NOTRE FACON // Association du bouton i à la colonne i
+        colonneLayout->addWidget(boutonColonne);   // Ajout des 11 boutons en ligne
+    }
+
+
+
+    QVBoxLayout *mainLayout = new QVBoxLayout();    // Création d'un Layout principal
+    setLayout(mainLayout);                         // Dans lequel on va ajouter tous nos widgets et Layout secondaire
+
+    QHBoxLayout *titreLayout = new QHBoxLayout();   // Création du Layout titre qu'on place au milieu
+    titreLayout->addStretch();
+    titreLayout->addWidget(TITRE);
+    titreLayout->addStretch();
 
     QHBoxLayout *buttonLayout = new QHBoxLayout();  // Création du Layout Bouton en ligne
     buttonLayout->addWidget(RESET);
     buttonLayout->addWidget(Quit1);
+
+
+    mainLayout->addLayout(titreLayout);    // Ajout du Layout titre dans le layout principal
+    mainLayout->addWidget(PLATEAU);        // Ajout du plateau dans le layout princiapl
+    mainLayout->addLayout(colonneLayout);  // ajout du layout des 7 boutons au layout principal
     mainLayout->addLayout(buttonLayout);   // Ajout du layout bouton au layout principal
 
+
+    connect(RESET, SIGNAL(clicked()), this, SLOT (Reinitialiser()));  // Fonction qui permet d'assosier le bouton RESET à la fonction Reinitialiser()
+    connect(Quit1, SIGNAL(clicked()), this, SLOT (close())); // fonction connect qui permet d'associer l'action de quitter au bouton QUIT
 }
 
 void PLAY_3P::colonneCliquee(int col) {    //
