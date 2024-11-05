@@ -3,11 +3,11 @@
 
 
 JETON_2P::JETON_2P(QWidget *parent) : QPushButton(parent), joueur(0)  {
-    setStyleSheet("background-color: darkblue;");
+    setStyleSheet("background-color: darkblue;"); // Définition de la couleur d'arrière plan de l'interface
     setFixedSize(45, 45);  // Definition de la taille du jeton
 }
 
-void JETON_2P::definirCouleur(int joueurId) {   // Fonction pour définir la couleur du jeton
+void JETON_2P::definirCouleur(int joueurId) {   // Fonction pour définir la couleur du jeton, en fonction du joueur
 
 
     joueur = joueurId;
