@@ -11,10 +11,10 @@ public:
 
 
     void definirCouleur(int joueur); // Change la couleur en fonction du joueur
-    int getJoueur() const { return joueur; }
+    int getJoueur() const ;
 
 private:
-    int joueur; // 0 = vide, 1 = joueur 1, 2 = joueur 2
+    int joueur;
 };
 
 #endif
