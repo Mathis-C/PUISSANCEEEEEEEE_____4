@@ -15,8 +15,10 @@ PLATEAU_3P::PLATEAU_3P(QWidget *parent)
     // Initialisation de la grille
     for (int row = 0; row < 10; ++row) {   // On parcours les lignes de la grille de 0 à 9 (10 lignes au total)
         for (int col = 0; col < 11; ++col) {  // On parcours les colonnes de 0 à 10 (11 colonnes au total)
-            JETON = new JETON_2P(this);  // Création d'un Widget "JETON" qui provirnt de la classe "JETON_2P"
-            grille[row][col] = JETON;   // Remplissage de tt les jetons dans la grilles
+
+            JETON = new JETON_2P(this);  // Création d'un Widget "JETON" qui provient de la classe "JETON_2P"
+
+            grille[row][col] = JETON;   // Remplissage de tt les jetons dans la grille
             layoutGrille->addWidget(JETON, row, col); // Ajout des WIDGETS dans la grille
         }
     }
@@ -24,6 +26,7 @@ PLATEAU_3P::PLATEAU_3P(QWidget *parent)
 
 
 bool PLATEAU_3P::ajouterJeton(int col, int joueur) { //Fontion pour ajouter un jeton en tant que joueur
+
     for (int row = 9; row >= 0; --row) {  // Boucle for pour tourner sur les différentes lignes de la colonne choisit
         if (grille[row][col]->getJoueur() == 0) {  // Condition if pour voir si les lignes sont vides
             // Verification en partant du bas de la grille
