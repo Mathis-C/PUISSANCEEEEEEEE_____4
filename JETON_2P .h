@@ -3,18 +3,19 @@
 
 #include <QPushButton>
 
-class JETON_2P : public QPushButton {
+class JETON_2P : public QPushButton {   // déclaration de la class
     Q_OBJECT
 
 public:
-    explicit JETON_2P(QWidget *parent = nullptr);
+    explicit JETON_2P(QWidget *parent = nullptr);  // Déclaration de notre Widget "Parent"
 
-
-    void definirCouleur(int joueur); // Change la couleur en fonction du joueur
-    int getJoueur() const ;
+// Fonctions qui vont nous permettre de gérer les différents joueurs
+    void definirCouleur(int joueur); 
+    int getJoueur() const ; 
 
 private:
     int joueur;
 };
 
 #endif
+
