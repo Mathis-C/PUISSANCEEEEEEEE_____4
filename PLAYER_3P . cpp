@@ -32,7 +32,7 @@ void PLAY_3P:: INTERFACE_3P(){
     for (int i = 0; i < 11 ; ++i) {      // Création de 11 boutons avec boucle for
         boutonColonne = new QPushButton("Inserer un jeton !");  //Création d'un widget bouton, qu'on va répéter 11 fois + Remplissage écriture bouton
         boutonColonne->setFixedSize(50, 50);   // Taille bouton
-        connect(boutonColonne, SIGNAL(clicked()), this, SLOT ({colonneCliquee(i);}));  // ECRIRE A NOTRE FACON // Association du bouton i à la colonne i
+      connect(boutonColonne, &QPushButton::clicked, [this, i]() { colonneCliquee(i); });  // ECRIRE A NOTRE FACON // Association du bouton i à la colonne i
         colonneLayout->addWidget(boutonColonne);   // Ajout des 11 boutons en ligne
     }
     mainLayout->addLayout(colonneLayout);  // ajout du layout des 7 boutons au layout principal
