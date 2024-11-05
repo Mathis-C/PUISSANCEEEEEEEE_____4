@@ -1,5 +1,6 @@
 #include "PLATEAU_2P.h"
 #include <QMessageBox>
+#include "jeton_2p.h"
 
 using namespace std;
 
