@@ -8,29 +8,31 @@
 #include <QPushButton>
 #include <QLabel>
 
-class MENU_PLAYER : public QWidget
+class MENU_PLAYER : public QWidget   // déclaration de la class
 {
     Q_OBJECT
 
 
 public:
 
-    explicit MENU_PLAYER(QWidget *parent = nullptr);
-    void start();
-
+    explicit MENU_PLAYER(QWidget *parent = nullptr);  // Déclaration de notre Widget "Parent"
+    
+    void start();  // Fonction définissant notre interface graphique
+    
 private slots :
-
+// Déclaration de nos fonctions qui sont donc des slots pouvant être appelé par des signaux
     void PL_2P();
     void PL_3P();
 
 private:
+// Déclaration des Widgets "enfants"    
 
     QLabel * nbrJ;
     QPushButton * TwoP;
     QPushButton *ThreeP;
     QPushButton * Quit1;
-    PLAY_2P *menu2P;
-    PLAY_3P *menu3P;
+    PLAY_2P *menu2P;  // Initialisation de la class PLAY_2P
+    PLAY_3P *menu3P;  // Initialisation de la class PLAY_3P
 
 
 
