@@ -1,11 +1,13 @@
 #include "plateau_3p.h"
 #include <QMessageBox>
+#include <QWidget>
+
 
 using namespace std;
 
-
 PLATEAU_3P::PLATEAU_3P(QWidget *parent)
-    : QWidget(parent), layoutGrille(new QGridLayout(this)){     // ON VA CREER UNE GRILLE DE 10 LIGNES et 11 COLONNES
+    : QWidget(parent), layoutGrille(new QGridLayout(this)){
+
 
     setLayout(layoutGrille);    // Ajout du Layout en grille
     grille.resize(10, vector<JETON_2P*>(11, nullptr));   // Redimensionnement des jetons à la taille de la grille
@@ -20,6 +22,7 @@ PLATEAU_3P::PLATEAU_3P(QWidget *parent)
     }
 }
 
+
 bool PLATEAU_3P::ajouterJeton(int col, int joueur) { //Fontion pour ajouter un jeton en tant que joueur
     for (int row = 9; row >= 0; --row) {  // Boucle for pour tourner sur les différentes lignes de la colonne choisit
         if (grille[row][col]->getJoueur() == 0) {  // Condition if pour voir si les lignes sont vides
@@ -28,7 +31,7 @@ bool PLATEAU_3P::ajouterJeton(int col, int joueur) { //Fontion pour ajouter un j
             //  pour pouvoir ajouter un jeton de couleur
 
             grille[row][col]->definirCouleur(joueur);  // Ajout de la couleur du jeton dans la première case vide en partant du bas
-                                                       // en fonction du joueur actif
+                // en fonction du joueur actif
             return verifierVictoire(joueur);           // Après ajout du jeton, on verifit si le joueur actif a gagné
         }
     }
@@ -91,4 +94,3 @@ void PLATEAU_3P::reinitialiser() {  // Fonction pour réinitialiser le jeu
         }
     }
 }
-
