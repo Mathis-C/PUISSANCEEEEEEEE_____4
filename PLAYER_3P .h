@@ -1,43 +1,32 @@
-#ifndef PLAY_3P_H
-#define PLAY_3P_H
-#include "plateau_3p.h"
-#include <QMainWindow>
+#ifndef PLATEAU_3P_H
+#define PLATEAU_3P_H
+
 #include <QWidget>
-#include <QComboBox>
-#include <QPushButton>
-#include <QLabel>
+#include <QGridLayout>
+#include "jeton_2p.h"
 
 using namespace std;
 
+class PLATEAU_3P : public QWidget { // déclaration de la class
 
-class PLAY_3P : public QWidget
-{
     Q_OBJECT
 
 public:
 
-    explicit PLAY_3P(QWidget *parent = nullptr);
+    explicit PLATEAU_3P(QWidget *parent = nullptr);  // Déclaration de notre Widget "Parent"
 
-    void INTERFACE_3P();
-
-
-public slots:
-
-    void colonneCliquee(int col);
-    void Reinitialiser();
+    //Initialisation de nos fonctions, qui permettent la gestion et la mise en place du jeu
+    bool ajouterJeton(int col, int joueur);
+    bool verifierVictoire(int joueur);
+    void reinitialiser();
 
 private:
 
-
-    QLabel * TITRE;
-    QPushButton * RESET;
-    QPushButton * Quit1;
-    QPushButton * boutonColonne;
-    PLATEAU_3P * PLATEAU;
-    int joueurActuel = 1;
-    void changerJoueur();
+    //Initialisation d'un vector à deux dimensions qui contient les jetons, définit avec la classe JETON_2P
+    vector<vector<JETON_2P*>> grille;
+    QGridLayout *layoutGrille;  // Met les Laytout en grille
+    JETON_2P *JETON; // Initialisation de notre class JETON
 
 };
 
-
-#endif // PLAY_3P_H
+#endif // PLATEAU_3P_H
