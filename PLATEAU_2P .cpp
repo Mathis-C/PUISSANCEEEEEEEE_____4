@@ -1,93 +1,102 @@
-#include "play_2p.h"
 #include "PLATEAU_2P.h"
-#include "qobjectdefs.h"
-#include <QMainWindow>
-#include <QWidget>
-#include <QPushButton>
-#include <QLabel>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
 #include <QMessageBox>
+#include "jeton_2p.h"
+
+using namespace std;
 
 
-PLAY_2P::PLAY_2P(QWidget *parent) : QWidget(parent),  PLATEAU(new PLATEAU_2P(this)) {
+PLATEAU_2P::PLATEAU_2P(QWidget *parent)    // Déclaration de notre constructeur
+    : QWidget(parent){
+    
+    layoutGrille = new QGridLayout(this);
+    
+    setLayout(layoutGrille);    // Ajout du Layout en grille
+    grille.resize(6, vector<JETON_2P*>(7, nullptr));   // Redimensionnement des jetons à la taille de la grille
+                                                       // GRILLE (6x7)
+    // Initialisation de la grille
+    for (int row = 0; row < 6; ++row) {   // On parcours les lignes de la grille de 0 à 5 (6 lignes au total)
+        for (int col = 0; col < 7; ++col) {  // On parcours les colonnes de 0 à 6 (7 colonnes au total)
 
-}
+            JETON = new JETON_2P(this);  // Création d'un Widget "JETON" qui provient de la classe "JETON_2P"
 
-
-void PLAY_2P:: INTERFACE_2P(){
-
-    setWindowTitle("POWER 4");   // Titre de l'interface
-    window()->setStyleSheet("background-color: black;"); // Couleur de fond noire
-
-    QVBoxLayout *mainLayout = new QVBoxLayout();    // Création d'un Layout principal
-    setLayout(mainLayout);                         // Dans lequel on va ajouter tous nos widgets et Layout secondaire
-
-    TITRE = new QLabel("POWER 4", this);         // Création du widget TITRE sous forme de QLABEL
-    TITRE->setStyleSheet("font-size: 80px; font-weight: bold; color: red;");
-
-    QHBoxLayout *titreLayout = new QHBoxLayout();   // Création du Layout titre qu'on place au milieu
-    titreLayout->addStretch();
-    titreLayout->addWidget(TITRE);
-    titreLayout->addStretch();
-    mainLayout->addLayout(titreLayout);   // Ajout du Layout titre dans le layout principal
-
-    // Boutons pour chaque colonne
-    QHBoxLayout *colonneLayout = new QHBoxLayout();   // création d'un laytout horizontal pour ajouter nos 7 boutons
-    for (int i = 0; i < 7; ++i) {      // Création de 7 boutons avec boucle for
-        boutonColonne = new QPushButton(" TOKEN ");  //Création d'un widget bouton, qu'on va répéter 7 fois + Remplissage nbr colonne
-        boutonColonne->setFixedSize(45, 45);   // Taille bouton
-        boutonColonne->setStyleSheet("font-size: 10px; font-weight: bold;background-color: darkblue; color: white;");
-        connect(boutonColonne, &QPushButton::clicked, [this, i]() { colonneCliquee(i); });// Association du bouton i à la colonne i
-        colonneLayout->addWidget(boutonColonne);   // Ajout des 7 boutons en ligne
-    }
-    mainLayout->addLayout(colonneLayout);  // ajout du layout des 7 boutons au layout principal
-
-    mainLayout->addWidget(PLATEAU);  // Ajout du plateau dans le layout princiapl
-
-    // Boutons Reset et Quit
-    RESET = new QPushButton("RESET", this);   // Création du bouton widget RESET
-    RESET->setStyleSheet("font-size: 25px; font-weight: bold;background-color: darkblue; color: white;");
-
-    Quit1 = new QPushButton("RETURN", this);    // Création du bouton widget QUIT
-    Quit1->setStyleSheet("font-size: 25px; font-weight: bold;background-color: darkblue; color: white;");
-
-    connect(RESET, SIGNAL(clicked()), this, SLOT (Reinitialiser()));  // Fonction qui permet d'assosier le bouton RESET à la fonction Reinitialiser()
-    connect(Quit1, SIGNAL(clicked()), this, SLOT (close())); // fonction connect qui permet d'associer l'action de quitter au bouton QUIT
-
-
-    QHBoxLayout *buttonLayout = new QHBoxLayout();  // Création du Layout Bouton en ligne
-    buttonLayout->addWidget(RESET);
-    buttonLayout->addWidget(Quit1);
-    mainLayout->addLayout(buttonLayout);   // Ajout du layout bouton au layout principal
-
-}
-
-void PLAY_2P::colonneCliquee(int col) {    //
-
-    if (PLATEAU->ajouterJeton(col, joueurActuel)) {  // Si la fonction bool return true (victoire) alors afficher le message
-        // On ouvre une fenêtre de dialogue si la condition est vérifiée par le if
-        // celle-ci indique quel joeur a gagné en utilisant un argument definissant le dernier joueur actif
-        QMessageBox::information(this, "WINNN !!!", QString("PLAYER %1 WON!").arg(joueurActuel));
-        PLATEAU->reinitialiser();
-    }
-    changerJoueur();  // On appelle cette fonction pour changer de joeur quand un joueur a cliqué sur un colonne pour jouer
-}
-
-void PLAY_2P::changerJoueur() {  // Fonction pour changer de joueur actif
-
-    if (joueurActuel == 1) {   // condition if pour changer de joueur si le joeur 1 est actif
-
-        joueurActuel = 2;
-
-    } else if (joueurActuel == 2) {
-
-        joueurActuel = 1;   // Si le joeur 1 n'est pas actif, le joueur 1 devient actif
+            grille[row][col] = JETON;   // Remplissage de tt les jetons dans la grille
+            layoutGrille->addWidget(JETON, row, col); // Ajout des WIDGETS dans la grille
+        }
     }
 }
 
+bool PLATEAU_2P::ajouterJeton(int col, int joueur) { //Fontion pour ajouter un jeton en tant que joueur
 
-void PLAY_2P::Reinitialiser() {   //Fonction pour réinitialiser le jeu
-    PLATEAU->reinitialiser();
+
+    for (int row = 5; row >= 0; --row) {  // Boucle for pour tourner sur les différentes lignes de la colonne choisit
+        if (grille[row][col]->getJoueur() == 0) {  // Condition if pour voir si les lignes sont vides
+                                                   // Verification en partant du bas de la grille
+                                                   // On remonte la colonne jusqu'à une case vide
+                                                   //  pour pouvoir ajouter un jeton de couleur
+
+            grille[row][col]->definirCouleur(joueur);  // Ajout de la couleur du jeton dans la première case vide en partant du bas
+                                                       // en fonction du joueur actif
+
+            return verifierVictoire(joueur);           // Après ajout du jeton, on verifit si le joueur actif a gagné
+        }
+    }
+    return false;   // return flase si le joueur n'a pas encore gagné -> le jeu continu
 }
 
+bool PLATEAU_2P::verifierVictoire(int joueur) {
+
+    // Vérification des lignes
+    for (int row = 0; row < 6; ++row) {     // boucle for pour tourner sur toutes les lignes de la grille
+        for (int col = 0; col < 4; ++col) {  // boucle  for pour tourner sur les 4 premières colonnes (4+3 =7)
+
+            if (grille[row][col]->getJoueur() == joueur &&             // Condition if pour vérifier
+                grille[row][col + 1]->getJoueur() == joueur &&         // Si les 4 jetons d'une même ligne
+                grille[row][col + 2]->getJoueur() == joueur &&         // appartiennent au même joueur
+                grille[row][col + 3]->getJoueur() == joueur) {         // 4 conditions doit être vérifiées (car PUISSANCE 4)
+                return true;   // Return true pour VICTOIRE
+            }
+        }
+    }
+
+    // Vérification des colonnes
+    for (int col = 0; col < 7; ++col) {            // boucle for pour tourner sur toutes les colonnes de la grille
+        for (int row = 0; row < 3; ++row) {           // boucle  for pour tourner sur les 3 premières lignes (3+3 =6)
+            if (grille[row][col]->getJoueur() == joueur &&                  //condition if qui suit le même principe
+                grille[row + 1][col]->getJoueur() == joueur &&              // que la vérification des lignes
+                grille[row + 2][col]->getJoueur() == joueur &&
+                grille[row + 3][col]->getJoueur() == joueur) {
+                return true;    // Return true pour VICTOIRE
+            }
+        }
+    }
+
+    // Vérification des diagonales
+    for (int row = 0; row < 3; ++row) {      // boucle  for pour tourner sur les 3 premières lignes (3+3 =6)
+        for (int col = 0; col < 4; ++col) {  // boucle  for pour tourner sur les 4 premières colonnes (4+3 =7)
+            if (grille[row][col]->getJoueur() == joueur &&              //condition if qui suit le même principe
+                grille[row + 1][col + 1]->getJoueur() == joueur &&       // que la vérification des lignes et colonnes
+                grille[row + 2][col + 2]->getJoueur() == joueur &&
+                grille[row + 3][col + 3]->getJoueur() == joueur) {
+                return true;  // Return true pour VICTOIRE
+            }
+            if (grille[row][col + 3]->getJoueur() == joueur &&            //condition if qui suit le même principe
+                grille[row + 1][col + 2]->getJoueur() == joueur &&        // que la vérification des lignes et colonnes
+                grille[row + 2][col + 1]->getJoueur() == joueur &&
+                grille[row + 3][col]->getJoueur() == joueur) {
+                return true;   // Return true pour VICTOIRE
+            }
+        }
+    }
+
+
+
+    return false; // Return flase si le joueur n'a pas encore gagné -> le jeu continu
+}
+
+void PLATEAU_2P::reinitialiser() {  // Fonction pour réinitialiser le jeu
+    for (int i = 0; i < grille.size(); ++i) {     // 2 boucles for pour tourner sur les deux dimensions du vector grille
+        for (int j = 0; j < grille[i].size(); ++j) {    // Vector grille qui stock tt les jetons
+            grille[i][j]->definirCouleur(0);   // On colore tt les jetons en Gris (comme appartenant à aucun joueur)
+        }
+    }
+}
