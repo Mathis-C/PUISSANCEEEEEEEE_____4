@@ -14,7 +14,7 @@ PLAY_2P::PLAY_2P(QWidget *parent) : QWidget(parent),  PLATEAU(new PLATEAU_2P(thi
 
 }
 
-
+// Fontion qui permet le lien entre l'interface 'MENU_PLAYER'
 void PLAY_2P:: INTERFACE_2P(){
 
     setWindowTitle("POWER 4");   // Titre de l'interface
@@ -67,35 +67,35 @@ void PLAY_2P:: INTERFACE_2P(){
 
 int PLAY_2P::changerJoueur() {  // Fonction pour changer de joueur actif
 
-    if (joueurActuel == 1) {   // condition if pour changer de joueur si le joeur 1 est actif
-        i++;
-        joueurActuel = 2;
+    if (joueurActuel == 1) {   // condition if pour changer de joueur si le joueur 1 est actif
+        i++;             // Incrémentation pour obtenir le nbr total de jetons posés par le joueur 1
+        joueurActuel = 2;   // le joueur 2 devient actif
 
-    } else if (joueurActuel == 2) {
-        j++;
-        joueurActuel = 1;   // Si le joeur 1 n'est pas actif, le joueur 1 devient actif
+    } else if (joueurActuel == 2) {   // condition if pour changer de joueur si le joueur 2 est actif
+        j++;                  // Incrémentation pour obtenir le nbr total de jetons posés par le joueur 2
+        joueurActuel = 1;   // le joueur 1 devient actif
     }
 
-    if (i > j){
+    if (i > j){   //Condition if pour annoncer le joueur 1 gagnant
 
-        k=i ;
+        k=i ; // Si le joueur 1 est le dernier à jouer, k prend la valeur du nombre de jeton du joueur 1
 
-    } else if (j == i ){
-
-        k=j+1 ;
+    } else if (j == i ){     //Condition if pour annoncer le joueur 2 gagnant
+ 
+        k=j+1 ;  // Si le joueur 2 est le dernier à jouer, k prend la valeur du nombre de jeton du joueur 2
     }
 
-    return k;
+    return k;  // On retourne la valeur du nombres de jetons du gagnant
 }
 
 string PLAY_2P::CouleurJ(){
 
-    if(joueurActuel==1){
-        CP = "RED";
-    }else if(joueurActuel==2){
-        CP = "YELLOW";
+    if(joueurActuel==1){        // Condition if qui vérifie que le joueur 1 est actif
+        CP = "RED";             // On associe la valeur de CP à RED si la condition est verifiée
+    }else if(joueurActuel==2){  // Condition if qui vérifie que le joueur 2 est actif
+        CP = "YELLOW";          // On associe la valeur de CP à YELLOW si la condition est verifiée
     }
-    return CP;
+    return CP;                  // On retourne la couleur du joueur actuel 
 }
 
 void PLAY_2P::colonneCliquee(int col) {    //
@@ -103,8 +103,8 @@ void PLAY_2P::colonneCliquee(int col) {    //
     if (PLATEAU->ajouterJeton(col, joueurActuel)) {  // Si la fonction bool return true (victoire) alors afficher le message
         // On ouvre une fenêtre de dialogue si la condition est vérifiée par le if
         // celle-ci indique quel joueur a gagné en utilisant un argument definissant le dernier joueur actif
-
-        QMessageBox::information(this, "WINNN !!!", QString("PLAYER IN %1 WON!").arg(QString::fromStdString(CP)),QString("WITH %1 TOKENS").arg(k));
+        QString couleur = QString::fromStdString(CouleurJ()); // On initialise un Qstring pour renvoyer la couleur du gagnant dans la boite de dialogue
+        QMessageBox::information(this, "WINNN !!!", QString("PLAYER IN %1 WON!").arg(couleur),QString("WITH %1 TOKENS").arg(k));
         Reinitialiser();
 
     }else{
@@ -115,7 +115,8 @@ void PLAY_2P::colonneCliquee(int col) {    //
 }
 
 void PLAY_2P::Reinitialiser() {   //Fonction pour réinitialiser le jeu
-    PLATEAU->reinitialiser();
+    
+    PLATEAU->reinitialiser();  // On appelle notre fonction de la classe PLATEAU
     // Réinitialisation des variables quand le jeu est relancé
     i=0;
     j=0;
