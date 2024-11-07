@@ -1,32 +1,51 @@
-#ifndef PLATEAU_3P_H
-#define PLATEAU_3P_H
-
+#ifndef PLAY_3P_H
+#define PLAY_3P_H
+#include "plateau_3p.h"
+#include <QMainWindow>
 #include <QWidget>
-#include <QGridLayout>
-#include "jeton_2p.h"
+#include <QComboBox>
+#include <QPushButton>
+#include <QLabel>
 
 using namespace std;
 
-class PLATEAU_3P : public QWidget { // déclaration de la class
 
+class PLAY_3P : public QWidget
+{
     Q_OBJECT
 
 public:
 
-    explicit PLATEAU_3P(QWidget *parent = nullptr);  // Déclaration de notre Widget "Parent"
+    explicit PLAY_3P(QWidget *parent = nullptr);
 
-    //Initialisation de nos fonctions, qui permettent la gestion et la mise en place du jeu
-    bool ajouterJeton(int col, int joueur);
-    bool verifierVictoire(int joueur);
-    void reinitialiser();
+    void INTERFACE_3P();
+
+
+public slots:
+
+    void colonneCliquee(int col);
+    void Reinitialiser();
 
 private:
 
-    //Initialisation d'un vector à deux dimensions qui contient les jetons, définit avec la classe JETON_2P
-    vector<vector<JETON_2P*>> grille;
-    QGridLayout *layoutGrille;  // Met les Laytout en grille
-    JETON_2P *JETON; // Initialisation de notre class JETON
+
+    QLabel * TITRE;
+    QPushButton * RESET;
+    QPushButton * Quit1;
+    QPushButton * boutonColonne;
+    PLATEAU_3P * PLATEAU;
+    int joueurActuel = 1;
+    int changerJoueur();
+    string CouleurJ();
+    string CP;
+
+    // Initialisations des variables pour compter les nombres de jetons gagant
+    int i =0;
+    int j=0;
+    int l =0;
+    int k=0;
 
 };
 
-#endif // PLATEAU_3P_H
+
+#endif // PLAY_3P_H
