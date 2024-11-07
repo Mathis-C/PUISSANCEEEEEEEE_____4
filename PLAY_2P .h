@@ -9,6 +9,7 @@
 
 using namespace std;
 
+
 class PLAY_2P : public QWidget
 {
     Q_OBJECT
@@ -33,11 +34,15 @@ private:
     QPushButton * Quit1;
     QPushButton *boutonColonne;
     PLATEAU_2P *PLATEAU;
-    int joueurActuel = 1;
+    int joueurActuel =1;
+    int changerJoueur();
+    string CouleurJ();
+    string CP;
 
-
-    void changerJoueur();
-
+    // Initialisations des variables pour compter les nombres de jetons gagant
+    int i =0;
+    int j=0;
+    int k=0;
 };
 
 #endif // PLAY_2P_H
