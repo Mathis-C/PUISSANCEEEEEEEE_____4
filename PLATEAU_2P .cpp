@@ -8,7 +8,7 @@ using namespace std;
 PLATEAU_2P::PLATEAU_2P(QWidget *parent)    // Déclaration de notre constructeur
     : QWidget(parent){
     
-    layoutGrille = new QGridLayout(this);
+    layoutGrille = new QGridLayout(this);  // Création du layout layoutGrille, qui sera en grille 
     
     setLayout(layoutGrille);    // Ajout du Layout en grille
     grille.resize(6, vector<JETON_2P*>(7, nullptr));   // Redimensionnement des jetons à la taille de la grille
