@@ -10,30 +10,33 @@
 using namespace std;
 
 
-class PLAY_2P : public QWidget
+class PLAY_2P : public QWidget   // déclaration de la class
 {
     Q_OBJECT
 
 public:
 
-    explicit PLAY_2P(QWidget *parent = nullptr);
+    explicit PLAY_2P(QWidget *parent = nullptr);  // Déclaration de notre Widget "Parent"
 
-    void INTERFACE_2P();
+    void INTERFACE_2P(); // Fonction qui permet le lien entre les interfaces
 
 
 public slots:
-
-    void colonneCliquee(int col);
+    
+    //Initialisation de nos fonctions, qui permettent la gestion et la mise en place du jeu
+    void colonneCliquee(int col);   
     void Reinitialiser();
 
 private:
-
-
+    
+    // Initialisation des widgets 'enfant'
     QLabel * TITRE;
     QPushButton * RESET;
     QPushButton * Quit1;
     QPushButton *boutonColonne;
-    PLATEAU_2P *PLATEAU;
+    
+    // Initialisation de notre class PLATEAU_2P
+    PLATEAU_2P *PLATEAU;   
     int joueurActuel =1;
     int changerJoueur();
     string CouleurJ();
