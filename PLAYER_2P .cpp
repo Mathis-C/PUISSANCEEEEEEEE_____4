@@ -63,34 +63,64 @@ void PLAY_2P:: INTERFACE_2P(){
 
 }
 
+
+
+int PLAY_2P::changerJoueur() {  // Fonction pour changer de joueur actif
+
+    if (joueurActuel == 1) {   // condition if pour changer de joueur si le joeur 1 est actif
+        i++;
+        joueurActuel = 2;
+
+    } else if (joueurActuel == 2) {
+        j++;
+        joueurActuel = 1;   // Si le joeur 1 n'est pas actif, le joueur 1 devient actif
+    }
+
+    if (i > j){
+
+        k=i ;
+
+    } else if (j == i ){
+
+        k=j+1 ;
+    }
+
+    return k;
+}
+
+string PLAY_2P::CouleurJ(){
+
+    if(joueurActuel==1){
+        CP = "RED";
+    }else if(joueurActuel==2){
+        CP = "YELLOW";
+    }
+    return CP;
+}
+
 void PLAY_2P::colonneCliquee(int col) {    //
 
     if (PLATEAU->ajouterJeton(col, joueurActuel)) {  // Si la fonction bool return true (victoire) alors afficher le message
         // On ouvre une fenêtre de dialogue si la condition est vérifiée par le if
-        // celle-ci indique quel joeur a gagné en utilisant un argument definissant le dernier joueur actif
-        QMessageBox::information(this, "WINNN !!!", QString("PLAYER %1 WON!").arg(joueurActuel));
-        PLATEAU->reinitialiser();
-    }
+        // celle-ci indique quel joueur a gagné en utilisant un argument definissant le dernier joueur actif
+
+        QMessageBox::information(this, "WINNN !!!", QString("PLAYER IN %1 WON!").arg(QString::fromStdString(CP)),QString("WITH %1 TOKENS").arg(k));
+        Reinitialiser();
+
+    }else{
+
     changerJoueur();  // On appelle cette fonction pour changer de joeur quand un joueur a cliqué sur un colonne pour jouer
-}
 
-void PLAY_2P::changerJoueur() {  // Fonction pour changer de joueur actif
-
-    if (joueurActuel == 1) {   // condition if pour changer de joueur si le joeur 1 est actif
-        joueurActuel = 2;
-    } else if (joueurActuel == 2) {
-        joueurActuel = 1;   // Si le joeur 1 n'est pas actif, le joueur 1 devient actif
     }
 }
-
 
 void PLAY_2P::Reinitialiser() {   //Fonction pour réinitialiser le jeu
     PLATEAU->reinitialiser();
+    // Réinitialisation des variables quand le jeu est relancé
+    i=0;
+    j=0;
+    k=0;
+    joueurActuel =1;
+
 }
-
-
-
-
-
-
 
