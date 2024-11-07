@@ -17,8 +17,9 @@ class PLAY_2P : public QWidget   // déclaration de la class
 public:
 
     explicit PLAY_2P(QWidget *parent = nullptr);  // Déclaration de notre Widget "Parent"
-
-    void INTERFACE_2P(); // Fonction qui permet le lien entre les interfaces
+    
+    // Fonction qui permet le lien entre les interfaces
+    void INTERFACE_2P(); 
 
 
 public slots:
@@ -36,7 +37,9 @@ private:
     QPushButton *boutonColonne;
     
     // Initialisation de notre class PLATEAU_2P
-    PLATEAU_2P *PLATEAU;   
+    PLATEAU_2P *PLATEAU;
+    
+    // Initialisation des variables et fonctions
     int joueurActuel =1;
     int changerJoueur();
     string CouleurJ();
