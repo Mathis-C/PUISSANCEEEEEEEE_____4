@@ -6,8 +6,9 @@
 using namespace std;
 
 PLATEAU_3P::PLATEAU_3P(QWidget *parent)
-    : QWidget(parent), layoutGrille(new QGridLayout(this)){
+    : QWidget(parent){
 
+    layoutGrille = new QGridLayout(this);
 
     setLayout(layoutGrille);    // Ajout du Layout en grille
     grille.resize(10, vector<JETON_2P*>(11, nullptr));   // Redimensionnement des jetons à la taille de la grille
@@ -97,3 +98,4 @@ void PLATEAU_3P::reinitialiser() {  // Fonction pour réinitialiser le jeu
         }
     }
 }
+
