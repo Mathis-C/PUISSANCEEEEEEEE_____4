@@ -7,26 +7,30 @@
 
 using namespace std;
 
-class PLATEAU_3P : public QWidget {
-
+class PLATEAU_3P : public QWidget { // déclaration de la class
+        
     Q_OBJECT
 
 public:
 
-    PLATEAU_3P();
-
-
-public:
-
-    explicit PLATEAU_3P(QWidget *parent = nullptr);
+    explicit PLATEAU_3P(QWidget *parent = nullptr);  // Déclaration de notre Widget "Parent"
+    
+    //Initialisation de nos fonctions, qui permettent la gestion et la mise en place du jeu    
     bool ajouterJeton(int col, int joueur);
     bool verifierVictoire(int joueur);
     void reinitialiser();
-    JETON_2P *JETON;
 
 private:
+    
+    //Initialisation d'un vector à deux dimensions qui contient les jetons, définit avec la classe JETON_2P
+    vector<vector<JETON_2P*>> grille;  
+    QGridLayout *layoutGrille;  // Met les Laytout en grille
+    JETON_2P *JETON; // Initialisation de notre class JETON
+    
+};
 
-    vector<vector<JETON_2P*>> grille;
+#endif // PLATEAU_3P_H
+
     QGridLayout *layoutGrille;
 };
 
