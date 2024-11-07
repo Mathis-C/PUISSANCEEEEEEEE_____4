@@ -8,7 +8,7 @@ using namespace std;
 PLATEAU_3P::PLATEAU_3P(QWidget *parent)
     : QWidget(parent){
 
-    layoutGrille = new QGridLayout(this);
+    layoutGrille = new QGridLayout(this);  // Création du layout layoutGrille, qui sera en grille 
 
     setLayout(layoutGrille);    // Ajout du Layout en grille
     grille.resize(10, vector<JETON_2P*>(11, nullptr));   // Redimensionnement des jetons à la taille de la grille
